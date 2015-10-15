@@ -1,4 +1,4 @@
-# aftership-slack
+# Slackship
 Slack Integration of aftership API
 
 #NOT READY YET - DO NOT USE
