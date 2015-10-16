@@ -81,13 +81,15 @@ app.post('/store', function(req, res) {
 
     case "check":
       var _trackNumber = command[1];
+      res.send(_trackNumber);
+      /*
       Aftership.last_checkpoint('ups', _trackNumber, ['tracking_number','slug','checkpoints'], function(err, result) {
         if (err) {
           res.send(err);
         } else {
           res.send(result);
         }
-      });
+      });*/
       break;
 
     default:
