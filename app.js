@@ -2,7 +2,7 @@ var express       = require('express');
 var bodyParser    = require('body-parser');
 var request       = require('request');
 var dotenv        = require('dotenv');
-var Aftership     = require('aftership')(process.env.AFTERSHIP_TOKEN);
+var packpin       = require('packpin')(process.env.PACKPIN_TOKEN);
 
 dotenv.load();
 
@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  return res.send('Welcome little mother fucker ! - Version 0.0.2');
+  return res.send('Welcome little mother fucker ! - Version 0.0.1');
 });
 
 app.use('/store', function(req, res, next) {
@@ -28,66 +28,32 @@ app.post('/store', function(req, res) {
   var command = req.body.text.split(' ');
   switch (command[0]) {
     case "couriers":
-      Aftership.getCouriers(function(err, result) {
-        res.send('Support courier count: ' + result.total + 'Couriers: ' + result.couriers);
-      });
+
       break;
 
     case "create":
       var _trackNumber = command[1];
-      Aftership.createTracking(_trackNumber, {slug: 'ups'}, function(err, result) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.send('Created the tracking: ' + result);
-        }
-      });
+
       break;
 
-    case "get":
-      Aftership.getTrackings({slug: 'ups'}, function(err, results) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.send('Total Trackings in query: ' + results.count);
-          res.send(results);
-        }
-      });
+    case "get": // Prenium
+
       break;
 
-    case "track":
+    case "track": // Internal server error
       var _trackNumber = command[1];
-      Aftership.tracking('ups', _trackNumber, ['tracking_number','slug','checkpoints'], function(err, result) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.send(result);
-        }
-      });
+
       break;
 
     case "update": // Prenium
       var _trackNumber = command[1];
       var _title = command[2]
-      Aftership.updateTracking('ups', _trackNumber, {title: _title }, function(err, result) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.send(result);
-        }
-      });
+
       break;
 
-    case "check":
+    case "check": // Non prenium
       var _trackNumber = command[1];
-      res.send(_trackNumber);
-      Aftership.last_checkpoint('ups', _trackNumber, ['tracking_number','slug','checkpoints'], function(err, result) {
-        if (err) {
-          res.send(err);
-        } else {
-          res.send(result);
-        }
-      });
+
       break;
 
     default:

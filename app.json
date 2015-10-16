@@ -1,6 +1,6 @@
 {
   "name": "Slackship",
-  "description": "Slack Integration of aftership API",
-  "repository": "https://github.com/aessig/aftership-slack",
-  "keywords": ["slack", "aftership"]
+  "description": "Parcel Tracking Slack Integration",
+  "repository": "https://github.com/aessig/slackship",
+  "keywords": ["slack", "parcel", "tracking"]
 }
