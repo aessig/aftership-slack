@@ -13,14 +13,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  return res.send('Welcome little mother fucker ! - Version 0.0.1');
+  return res.send('Welcome little mother fucker ! - Version 0.0.2');
 });
 
 app.use('/store', function(req, res, next) {
+  /*
   if (req.body.token !== process.env.SLACK_TOKEN) {
     return res.status(500).send('Cross site request forgerizzle!');
   }
-  next();
+  next();*/
 });
 
 app.post('/store', function(req, res) {
@@ -66,7 +67,7 @@ app.post('/store', function(req, res) {
       });
       break;
 
-    case "update":
+    case "update": // Prenium
       var _trackNumber = command[1];
       var _title = command[2]
       Aftership.updateTracking('ups', _trackNumber, {title: _title }, function(err, result) {
