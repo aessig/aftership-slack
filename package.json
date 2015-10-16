@@ -1,5 +1,5 @@
 {
-  "name": "benchmark-aftership-slack",
+  "name": "slackship",
   "version": "0.1.0",
   "description": "Parcel Tracking Slack Integration",
   "main": "index.js",
