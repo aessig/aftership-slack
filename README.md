@@ -28,6 +28,7 @@ Generate a new API key and make a not of it, as you'll need these later as well.
 Once you've cloned slackbox or hit the "Deploy with Heroku" button you'll need to setup the following environment variables. These can either be stored in a `.env` or set up as config variables in Heroku.
 
 * `AFTERSHIP_TOKEN` - Aftership token key.
+* `SLACK_TOKEN` - Slack token key.
 
 ###Authentication
 
