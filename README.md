@@ -1,7 +1,7 @@
 # Slackship
 Slack Integration of aftership API
 
-#NOT READY YET - DO NOT USE
+# -- NOT READY YET --
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
