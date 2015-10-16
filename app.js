@@ -29,8 +29,7 @@ app.post('/store', function(req, res) {
   switch (command[0]) {
     case "couriers":
       Aftership.getCouriers(function(err, result) {
-        res.send('Support courier count: ' + result.total);
-        res.send('Couriers: ' + result.couriers);
+        res.send('Support courier count: ' + result.total + 'Couriers: ' + result.couriers);
       });
       break;
 
@@ -81,7 +80,7 @@ app.post('/store', function(req, res) {
 
     case "check":
       var _trackNumber = command[1];
-      Aftership.last_checkpoint('ups', _trackNumber, ['tracking_number','title','slug','checkpoints'], function(err, result) {
+      Aftership.last_checkpoint('ups', _trackNumber, ['tracking_number','slug','checkpoints'], function(err, result) {
         if (err) {
           res.send(err);
         } else {
