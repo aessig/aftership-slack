@@ -16,10 +16,12 @@ app.get('/', function(req, res) {
   return res.send('Welcome little mother fucker ! - Version 0.0.1');
 });
 
+
 app.use('/store', function(req, res, next) {
+  /*
   if (req.body.token !== process.env.SLACK_TOKEN) {
     return res.status(500).send('Cross site request forgerizzle!');
-  }
+  }*/
   next();
 });
 
@@ -61,5 +63,11 @@ app.post('/store', function(req, res) {
   }
 });
 
-app.set('port', (process.env.PORT || 5000));
-app.listen(app.get('port'));
+app.set('port', process.env.PORT || 5000));
+var server = app.listen(app.get('port'), function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});
+*/
