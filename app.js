@@ -64,6 +64,4 @@ app.post('/store', function(req, res) {
 });
 
 app.set('port', process.env.PORT || 5000));
-var server = app.listen(app.get('port'), function () {
-  //console.log('Example app listening at http://%s:%s', host, port);
-});
+app.listen(app.get('port'));
