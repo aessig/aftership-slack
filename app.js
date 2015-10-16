@@ -17,11 +17,10 @@ app.get('/', function(req, res) {
 });
 
 app.use('/store', function(req, res, next) {
-  /*
   if (req.body.token !== process.env.SLACK_TOKEN) {
     return res.status(500).send('Cross site request forgerizzle!');
   }
-  next();*/
+  next();
 });
 
 app.post('/store', function(req, res) {
@@ -82,14 +81,13 @@ app.post('/store', function(req, res) {
     case "check":
       var _trackNumber = command[1];
       res.send(_trackNumber);
-      /*
       Aftership.last_checkpoint('ups', _trackNumber, ['tracking_number','slug','checkpoints'], function(err, result) {
         if (err) {
           res.send(err);
         } else {
           res.send(result);
         }
-      });*/
+      });
       break;
 
     default:
