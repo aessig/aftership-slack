@@ -153,7 +153,7 @@ app.post('/store', function(req, res) {
               var last_step = result.track_details[0];
               console.log(last_step);
               data += " *STATUS:* "+ last_step.status_string + "\n";
-              data += " *LOCATION:* " + last_step.zip + "\n";
+              data += " *LOCATION:* " + last_step.address + ", " + last_step.state + ", " + last_step.zip + ", " + last_step.country + "\n";
               data += " *DATE:* "+last_step.event_date+" "+last_step.event_time + "\n";
             }
             res.send(data);
