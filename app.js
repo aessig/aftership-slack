@@ -53,7 +53,7 @@ app.post('/store', function(req, res) {
         }
         else {
           var _trackNumber = command[1];
-          command.splice(2, command.length); // remove everything but the description
+          command.splice(0, 2); // remove everything but the description
           var _description = command.join(" ");
           packpin.detectCarriers(_trackNumber, function(err, result) {
             //console.log('Carriers: ');
