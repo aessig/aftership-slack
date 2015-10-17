@@ -124,7 +124,7 @@ app.post('/store', function(req, res) {
           } else {
             data += "*ALL TRACKINGS* (" + result.total + ") \n "
             for (var val of result.items) {
-              data += "- *"+ val.code + "*: "+val.description;
+              data += "- *"+ val.code + "*: "+val.description+ "\n";
             }
           }
           res.send(data);
