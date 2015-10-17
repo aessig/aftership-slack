@@ -28,7 +28,7 @@ app.post('/store', function(req, res) {
 
   var command = req.body.text.split(' ');
   if (!command[0]) {
-    return res.send(" Try: '/track create' Slackship command are the following  create, add, get, getAll, track, update, delete, carriers. Try any of those command without parameter to see how you should request");
+    return res.send(" Try: '/track create'. \n *Slackship* command are the following: create, add, get, getAll, track, update, delete, carriers. \n Try any of those command without parameter to see how you should request");
   }
   else {
     var data = "";
@@ -46,7 +46,7 @@ app.post('/store', function(req, res) {
 
       case "create":
         if (!command[1] && !command[2]) {
-          res.send(" Try: '/track create 058200005422993 Order from Digikey'. Slackship 'create' command structure  '/track create [tracking_number] [description]' ");
+          res.send(" Try: '/track create 058200005422993 Order from Digikey'. \n *Slackship* 'create' command structure is \n `/track create [tracking_number] [description]` ");
         }
         else {
           var _trackNumber = command[1];
@@ -68,7 +68,7 @@ app.post('/store', function(req, res) {
               });
             }
             else {
-              res.send("This tracking number is not from one of our supported carriers. Try using command /track create tracking_number carrier_code. Example: /track create 058200005422993 dpd");
+              res.send("This tracking number is not from one of our supported carriers. \n Try using command /track create tracking_number carrier_code. \n Example: /track create 058200005422993 dpd");
             }
           });
         }
@@ -76,7 +76,7 @@ app.post('/store', function(req, res) {
 
       case "add":
         if (!command[1] && !command[2] && !command[3]) {
-          res.send(" Try: '/track add 058200005422993 ups Order from Digikey'. Slackship 'add' command structure  '/track add [tracking_number] [carrier] [description]' ");
+          res.send(" Try: '/track add 058200005422993 ups Order from Digikey'. \n *Slackship* 'add' command structure is '/track add [tracking_number] [carrier] [description]' ");
         }
         else {
           var _trackNumber = command[1];
@@ -97,7 +97,7 @@ app.post('/store', function(req, res) {
 
       case "get": // Prenium
         if (!command[1]) {
-          res.send(" Try: '/track get 058200005422993 '. Slackship 'get' command structure  '/track get [tracking_number] [carrier=optional]' ");
+          res.send(" Try: '/track get 058200005422993 '. \n *Slackship* 'get' command structure is `/track get [tracking_number] [carrier=optional]` ");
         }
         else {
           var _trackNumber = command[1];
@@ -134,7 +134,7 @@ app.post('/store', function(req, res) {
       case "track": // Last position
         var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: '/track track 058200005422993 '. Slackship 'track' command structure  '/track track [tracking_number] [carrier=optional]' ");
+          res.send(" Try: '/track track 058200005422993 '. \n *Slackship* 'track' command structure is '/track track [tracking_number] [carrier=optional]' ");
         }
         else {
           var _trackNumber = command[1];
@@ -158,7 +158,7 @@ app.post('/store', function(req, res) {
       case "update":
         var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: '/track update 058200005422993 Order 2 from Farnell'. Slackship 'update' command structure  '/track update [tracking_number] [description]' ");
+          res.send(" Try: '/track update 058200005422993 Order 2 from Farnell'. \n *Slackship* 'update' command structure is '/track update [tracking_number] [description]' ");
         }
         else {
           var _trackNumber = command[1];
@@ -180,7 +180,7 @@ app.post('/store', function(req, res) {
       case "delete": // Non prenium
         var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: '/track delete 058200005422993 '. Slackship 'delete' command structure  '/track delete [tracking_number] [carrier=optional]' ");
+          res.send(" Try: '/track delete 058200005422993 '.\n *Slackship* 'delete' command structure  '/track delete [tracking_number] [carrier=optional]' ");
         }
         else {
           var _trackNumber = command[1];
