@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  return res.send('Welcome little mother fucker ! - Version 0.0.1');
+  return res.send('Welcome little mother fucker ! - Version 0.0.2');
 });
 
 app.use('/store', function(req, res, next) {
@@ -28,20 +28,19 @@ app.post('/store', function(req, res) {
 
   var command = req.body.text.split(' ');
   if (!command[0]) {
-    res.send(" Try: '/track create' Slackship command are the following  create, add, get, getAll, track, update, delete, carriers. Try any of those command without parameter to see how you should request");
+    return res.send(" Try: '/track create' Slackship command are the following  create, add, get, getAll, track, update, delete, carriers. Try any of those command without parameter to see how you should request");
   }
   else {
     switch (command[0]) {
       case "carriers":
-        res.send("Case: carriers");
+        data = "Case: carriers <br>";
         packpin.getCarriers(function(err, result) {
           if (err) {
-            res.send("Error: ");
-            res.send(err);
+            data += "Error: " + JSON.stringify(err);
           } else {
-            res.send('Carriers: ');
-            res.send(result);
+            data += 'Carriers: ' + JSON.stringify(result);
           }
+          res.send(data);
         });
         break;
 
