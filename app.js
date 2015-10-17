@@ -31,9 +31,9 @@ app.post('/store', function(req, res) {
     return res.send(" Try: '/track create' Slackship command are the following  create, add, get, getAll, track, update, delete, carriers. Try any of those command without parameter to see how you should request");
   }
   else {
+    var data = "";
     switch (command[0]) {
       case "carriers":
-        data = "Case: carriers <br>";
         packpin.getCarriers(function(err, result) {
           if (err) {
             data += "Error: " + JSON.stringify(err);
@@ -120,12 +120,11 @@ app.post('/store', function(req, res) {
       case "getAll": // Prenium
         packpin.getTrackings(function(err, result) {
           if (err) {
-            res.send(err);
-            res.send(result.reason);
+            data += "Error: "+ JSON.stringify(err) + JSON.stringify(result.reason);
           } else {
-            res.send('Tracking: ');
-            res.send(result);
+            data += "Tracking: "+ JSON.stringify(result)
           }
+          res.send(data);
         });
         break;
 
