@@ -62,12 +62,11 @@ app.post('/store', function(req, res) {
             if (_carriersCount >= 1) {
               packpin.createTracking(_trackNumber, result[0].code, {description:  _description}, function(err, result) {
                 if (err) {
-                  res.send(err);
-                  res.send(result.reason);
+                  data += "Error: " + JSON.stringify(err);
                 } else {
-                  res.send('Created the tracking: ');
-                  res.send(result);
+                  data += 'Track added with ID: '+ result.id;
                 }
+                res.send(data);
               });
             }
             else {
@@ -88,19 +87,18 @@ app.post('/store', function(req, res) {
           var _description = command.join(" ");
           packpin.createTracking(_trackNumber, _carrier, {description:  _description}, function(err, result) {
             if (err) {
-              res.send(err);
-              res.send(result.reason);
+              data += "Error: " + JSON.stringify(err);
             } else {
-              res.send('Created the tracking: ');
-              res.send(result);
+              data += 'Track added with ID: '+ result.id;
             }
+            res.send(data);
           });
         }
         break;
 
       case "get": // Prenium
         if (!command[1]) {
-          res.send(" Try: `/track get 058200005422993` \n *Slackship* *get* command structure is `/track get [tracking_number] [carrier=optional]`");
+          res.send(" Try: `/track get 058200005422993 dpd` \n *Slackship* *get* command structure is `/track get [tracking_number] [carrier]`");
         }
         else {
           var _trackNumber = command[1];
@@ -110,12 +108,11 @@ app.post('/store', function(req, res) {
           }
           packpin.getTracking(_trackNumber, _carrier, function(err, result) {
             if (err) {
-              res.send(err);
-              res.send(result.reason);
+              data += "Error: " + JSON.stringify(err);
             } else {
-              res.send('Tracking: ');
-              res.send(result);
+              data += 'get Track';
             }
+            res.send(data);
           });
         }
         break;
@@ -138,7 +135,7 @@ app.post('/store', function(req, res) {
 
       case "track": // Last position
         if (!command[1]) {
-          res.send(" Try: `/track track 058200005422993` \n *Slackship* *track* command structure is `/track track [tracking_number] [carrier=optional]` ");
+          res.send(" Try: `/track track 058200005422993 dpd` \n *Slackship* *track* command structure is `/track track [tracking_number] [carrier]` ");
         }
         else {
           var _trackNumber = command[1];
@@ -152,9 +149,12 @@ app.post('/store', function(req, res) {
               res.send(result.reason);
             } else {
               // Extract last postion
-              data += "*"+result.code+"* (" + result.description + ") \n ";
+              data += "*"+result.code+"* (" + result.description + ") \n";
               var last_step = result.track_details[0];
-              data += "*STATUS:* "+ last_step.status_string + "\n@ "+last_step.address+"\n("+last_step.event_date+" "+event_time+") \n";
+              console.log(last_step);
+              data += " *STATUS:* "+ last_step.status_string + "\n";
+              data += " *LOCATION:* " + last_step.zip + "\n";
+              data += " *DATE:* "+last_step.event_date+" "+last_step.event_time + "\n";
             }
             res.send(data);
           });
@@ -172,13 +172,11 @@ app.post('/store', function(req, res) {
           var _description = command.join(" ");
           packpin.updateTracking(_trackNumber, _carrier, _description, function(err, result) {
             if (err) {
-              res.send(err);
-              res.send(result.reason);
+              data += "Error: " + JSON.stringify(err);
             } else {
-              // Extract last postion
-              res.send('Tracking: ');
-              res.send(result);
+              data += 'Track *'+_trackNumber+'* updated !';
             }
+            res.send(data);
           });
         }
         break;
@@ -186,7 +184,7 @@ app.post('/store', function(req, res) {
       case "delete": // Non prenium
         var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: `/track delete 058200005422993` \n *Slackship* *delete* command structure  `/track delete [tracking_number] [carrier=optional]` ");
+          res.send(" Try: `/track delete 058200005422993 dpd` \n *Slackship* *delete* command structure  `/track delete [tracking_number] [carrier]` ");
         }
         else {
           var _trackNumber = command[1];
@@ -196,13 +194,11 @@ app.post('/store', function(req, res) {
           }
           packpin.deleteTracking(_trackNumber, _carrier, function(err, result) {
             if (err) {
-              res.send(err);
-              res.send(result.reason);
+              data += "Error: " + JSON.stringify(err);
             } else {
-              // Extract last postion
-              res.send('Tracking: ');
-              res.send(result);
+              data += 'Track *'+_trackNumber+'* deleted !';
             }
+            res.send(data);
           });
         }
         break;
