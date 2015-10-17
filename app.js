@@ -152,8 +152,8 @@ app.post('/store', function(req, res) {
               res.send(result.reason);
             } else {
               // Extract last postion
-              data += "*"+result.code+"* (" + result.description + ") \n "
-              var last_step = result.track_details[0]
+              data += "*"+result.code+"* (" + result.description + ") \n ";
+              var last_step = result.track_details[0];
               data += "*STATUS:* "+ last_step.status_string + "\n@ "+last_step.address+"\n("+last_step.event_date+" "+event_time+") \n";
             }
             res.send(data);
