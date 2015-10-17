@@ -40,7 +40,7 @@ app.post('/store', function(req, res) {
           } else {
             data += "*ALL CARRIERS* (" + result.length + ") \n ";
             for (var elem of result) {
-              data += "- "+elem.name;
+              data += "- "+elem.name+" \n";
             }
           }
           res.send(data);
@@ -164,11 +164,12 @@ app.post('/store', function(req, res) {
       case "update":
         var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: `/track update 058200005422993 Order 2 from Farnell` \n *Slackship* *update* command structure is `/track update [tracking_number] [description]` ");
+          res.send(" Try: `/track update 058200005422993 dpd Order 2 from Farnell` \n *Slackship* *update* command structure is `/track update [tracking_number] [carrier] [description]` ");
         }
         else {
           var _trackNumber = command[1];
-          command.splice(2, command.length); // remove everything but the description
+          var _carrier = command[2];
+          command.splice(3, command.length); // remove everything but the description
           var _description = command.join(" ");
           packpin.updateTracking(_trackNumber, _carrier, _description, function(err, result) {
             if (err) {
