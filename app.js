@@ -122,7 +122,10 @@ app.post('/store', function(req, res) {
           if (err) {
             data += "Error: "+ JSON.stringify(err) + JSON.stringify(result.reason);
           } else {
-            data += "*Tracking* \n "+ JSON.stringify(result)
+            data += "*ALL TRACKINGS* (" + result.total + ") \n "
+            for (var val of result.items) {
+              data += "- *"+ val.code + "*: "+val.description;
+            }
           }
           res.send(data);
         });
