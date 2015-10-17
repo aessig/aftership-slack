@@ -83,7 +83,7 @@ app.post('/store', function(req, res) {
         else {
           var _trackNumber = command[1];
           var _carrier = command[2];
-          command.splice(3, command.length); // remove everything but the description
+          command.splice(0, 3); // remove everything but the description
           var _description = command.join(" ");
           packpin.createTracking(_trackNumber, _carrier, {description:  _description}, function(err, result) {
             if (err) {
@@ -169,7 +169,7 @@ app.post('/store', function(req, res) {
         else {
           var _trackNumber = command[1];
           var _carrier = command[2];
-          command.splice(3, command.length); // remove everything but the description
+          command.splice(0,3); // remove everything but the description
           var _description = command.join(" ");
           packpin.updateTracking(_trackNumber, _carrier, _description, function(err, result) {
             if (err) {
