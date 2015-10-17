@@ -122,7 +122,7 @@ app.post('/store', function(req, res) {
           if (err) {
             data += "Error: "+ JSON.stringify(err) + JSON.stringify(result.reason);
           } else {
-            data += "*Tracking* </br> "+ JSON.stringify(result)
+            data += "*Tracking* \n "+ JSON.stringify(result)
           }
           res.send(data);
         });
