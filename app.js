@@ -38,7 +38,10 @@ app.post('/store', function(req, res) {
           if (err) {
             data += "Error: " + JSON.stringify(err);
           } else {
-            data += 'Carriers: ' + JSON.stringify(result);
+            data += "*ALL CARRIERS* (" + result.length + ") \n ";
+            for (var elem of result) {
+              data += "- "+elem.name;
+            }
           }
           res.send(data);
         });
@@ -46,7 +49,7 @@ app.post('/store', function(req, res) {
 
       case "create":
         if (!command[1] && !command[2]) {
-          res.send(" Try: '/track create 058200005422993 Order from Digikey'. \n *Slackship* 'create' command structure is \n `/track create [tracking_number] [description]` ");
+          res.send(" Try: `/track create 058200005422993 Order from Digikey` \n *Slackship* 'create' command structure is  `/track create [tracking_number] [description]` ");
         }
         else {
           var _trackNumber = command[1];
@@ -68,7 +71,7 @@ app.post('/store', function(req, res) {
               });
             }
             else {
-              res.send("This tracking number is not from one of our supported carriers. \n Try using command /track create tracking_number carrier_code. \n Example: /track create 058200005422993 dpd");
+              res.send("This tracking number is not from one of our supported carriers. \n Try using command /track create tracking_number carrier_code. \n Example: `/track add 058200005422993 dpd Order from Digikey`");
             }
           });
         }
@@ -76,7 +79,7 @@ app.post('/store', function(req, res) {
 
       case "add":
         if (!command[1] && !command[2] && !command[3]) {
-          res.send(" Try: '/track add 058200005422993 ups Order from Digikey'. \n *Slackship* 'add' command structure is '/track add [tracking_number] [carrier] [description]' ");
+          res.send(" Try: `/track add 058200005422993 ups Order from Digikey` \n *Slackship* *add* command structure is `/track add [tracking_number] [carrier] [description]`");
         }
         else {
           var _trackNumber = command[1];
@@ -97,7 +100,7 @@ app.post('/store', function(req, res) {
 
       case "get": // Prenium
         if (!command[1]) {
-          res.send(" Try: '/track get 058200005422993 '. \n *Slackship* 'get' command structure is `/track get [tracking_number] [carrier=optional]` ");
+          res.send(" Try: `/track get 058200005422993` \n *Slackship* *get* command structure is `/track get [tracking_number] [carrier=optional]`");
         }
         else {
           var _trackNumber = command[1];
@@ -123,8 +126,10 @@ app.post('/store', function(req, res) {
             data += "Error: "+ JSON.stringify(err) + JSON.stringify(result.reason);
           } else {
             data += "*ALL TRACKINGS* (" + result.total + ") \n "
+            var counter = 1;
             for (var val of result.items) {
-              data += "- *"+ val.code + "*: "+val.description+ "\n";
+              data += counter+") *"+ val.code + "* ("+val.carrier_code+") "+val.description+ "\n";
+              counter++;
             }
           }
           res.send(data);
@@ -132,9 +137,8 @@ app.post('/store', function(req, res) {
         break;
 
       case "track": // Last position
-        var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: '/track track 058200005422993 '. \n *Slackship* 'track' command structure is '/track track [tracking_number] [carrier=optional]' ");
+          res.send(" Try: `/track track 058200005422993` \n *Slackship* *track* command structure is `/track track [tracking_number] [carrier=optional]` ");
         }
         else {
           var _trackNumber = command[1];
@@ -148,9 +152,11 @@ app.post('/store', function(req, res) {
               res.send(result.reason);
             } else {
               // Extract last postion
-              res.send('Tracking: ');
-              res.send(result.track_details[0]);
+              data += "*"+result.code+"* (" + result.description + ") \n "
+              var last_step = result.track_details[0]
+              data += "*STATUS:* "+ last_step.status_string + "\n@ "+last_step.address+"\n("+last_step.event_date+" "+event_time+") \n";
             }
+            res.send(data);
           });
         }
         break;
@@ -158,7 +164,7 @@ app.post('/store', function(req, res) {
       case "update":
         var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: '/track update 058200005422993 Order 2 from Farnell'. \n *Slackship* 'update' command structure is '/track update [tracking_number] [description]' ");
+          res.send(" Try: `/track update 058200005422993 Order 2 from Farnell` \n *Slackship* *update* command structure is `/track update [tracking_number] [description]` ");
         }
         else {
           var _trackNumber = command[1];
@@ -180,7 +186,7 @@ app.post('/store', function(req, res) {
       case "delete": // Non prenium
         var _trackNumber = command[1];
         if (!command[1]) {
-          res.send(" Try: '/track delete 058200005422993 '.\n *Slackship* 'delete' command structure  '/track delete [tracking_number] [carrier=optional]' ");
+          res.send(" Try: `/track delete 058200005422993` \n *Slackship* *delete* command structure  `/track delete [tracking_number] [carrier=optional]` ");
         }
         else {
           var _trackNumber = command[1];
