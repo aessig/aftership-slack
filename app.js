@@ -28,7 +28,7 @@ app.post('/store', function(req, res) {
 
   var command = req.body.text.split(' ');
   if (!command[0]) {
-    return res.send(" Try: '/track create'. \n *Slackship* command are the following: create, add, get, getAll, track, update, delete, carriers. \n Try any of those command without parameter to see how you should request");
+    return res.send(" Try: '/track create'. \n *Slackship* command are the following: create, add, get, getall, track, update, delete, carriers. \n Try any of those command without parameter to see how you should request");
   }
   else {
     var data = "";
@@ -117,7 +117,7 @@ app.post('/store', function(req, res) {
         }
         break;
 
-      case "getAll": // Prenium
+      case "getall": // Prenium
         packpin.getTrackings(function(err, result) {
           if (err) {
             data += "Error: "+ JSON.stringify(err) + JSON.stringify(result.reason);
