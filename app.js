@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  return res.send('Welcome little mother fucker ! - Version 0.0.2');
+  return res.send('Welcome little mother fucker ! - Version 0.0.3');
 });
 
 app.use('/store', function(req, res, next) {
